@@ -28,8 +28,8 @@ const Stack = createStackNavigator();
 // const eventBriteSEARCH = `https://www.eventbriteapi.com/v3/events/search/`
 
 export default function Root() {
-  const [assetsLoaded, setAssetLoaded] = useState(false);
-  const [checking, setIsChecking] = useState(true);
+  const [assetsLoaded, setAssetLoaded] = useState(() => false);
+  const [checking, setIsChecking] = useState(() => true);
 
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const { getItem } = useAsyncStorage("@token");
@@ -37,7 +37,7 @@ export default function Root() {
   /* Loading custom fonts in async */
   const _loadAssetsAsync = async () => {
     await Font.loadAsync(customFonts);
-    setAssetLoaded(true);
+    setAssetLoaded(prev => !prev);
   };
 
   const checkIfUserIsLoggedIn = async () => {
@@ -45,19 +45,16 @@ export default function Root() {
 
     // user is logged in
     if (item !== null) {
-      setIsLoggedIn(true);
+      setIsLoggedIn(prev => !prev);
     }
 
     setIsChecking(prev => !prev);
   };
 
   // ---
-
+ 
   useEffect(() => {
     _loadAssetsAsync();
-  });
-
-  useEffect(() => {
     checkIfUserIsLoggedIn();
   }, []);
 
@@ -89,8 +86,8 @@ export default function Root() {
         ) : (
           <>
             <Stack.Screen name="Landing" component={LandingScreen} />
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="Register" component={RegistrationScreen} />
+            {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+            {/* <Stack.Screen name="Register" component={RegistrationScreen} /> */}
             <Stack.Screen name="ForgotP" component={ForgotPasswordScreen} />
             <Stack.Screen name="Onboarding" component={OnboardingScreen} />
           </>

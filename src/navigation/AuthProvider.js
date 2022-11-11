@@ -2,7 +2,9 @@ import { useState, createContext } from "react";
 
 export const AuthContext = createContext({
   userId: "",
-  setUserId: (newUserID) => {},
+  setUserId: (newUserID) => {
+    
+  },
 });
 
 export default AuthProvider = ({ children }) => {

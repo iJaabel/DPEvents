@@ -30,7 +30,7 @@ export default function RegistrationScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../../assets/background.png")}
+        source={require("../assets/background.png")}
         style={{
           flex: 1,
         }}
@@ -71,7 +71,7 @@ export default function RegistrationScreen({ navigation }) {
               <View style={styles.button2}>
                 <View style={styles.logo}>
                   <Image
-                    source={require("../../assets/facebook.png")}
+                    source={require("../assets/facebook.png")}
                     resizeMode="contain"
                     style={{
                       width: 30,
