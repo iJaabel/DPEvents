@@ -29,6 +29,9 @@ import { AuthContext } from "../navigation/AuthProvider";
  * @param { props } @returns the first screen our user sees when signing into the app
  *
  * TODO:
+ *  done - fix Login in animation to reflect only email and password
+ *  - Register sends credentials to server
+ *  - Login submits and retrives login cookie or whatever
  *  -
  */
 
@@ -36,6 +39,14 @@ const { width, height } = Dimensions.get("window");
 
 export default function LandingScreen({ navigation }) {
   const [isRegistering, setRegistering] = useState(false);
+
+  const [emailToregister, setEmail] = useState(``);
+  const [passwordToRegister, setPassword] = useState(``);
+  const [name, setName] = useState(``);
+
+  const [emailForLogin, setEmailLogin] = useState(``);
+  const [passwordForLogin, setPasswordLogin] = useState(``);
+
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const imagePosition = useSharedValue(1);
@@ -92,16 +103,18 @@ export default function LandingScreen({ navigation }) {
   //---
 
   const loginButtonScreenAnimator = () => {
+    setRegistering(false);
     imagePosition.value = 0;
   };
 
   const registerButtonScreenAnimator = () => {
+    setRegistering(true);
     imagePosition.value = 0;
   };
 
   const submitButtonHandler = async () => {
-    setIsLoggedIn(prev => !prev)
-  }
+    setIsLoggedIn((prev) => !prev);
+  };
 
   //---
 
@@ -138,25 +151,32 @@ export default function LandingScreen({ navigation }) {
       </View>  */}
       <View style={styles.footer}>
         <Animated.View style={buttonAnimatedStyle}>
-          <Pressable style={styles.formButton} onPress={loginButtonScreenAnimator}>
+          <Pressable
+            style={styles.formButton}
+            onPress={loginButtonScreenAnimator}
+          >
             <Text style={styles.formButtonText}>LOG IN</Text>
           </Pressable>
         </Animated.View>
         <Animated.View style={buttonAnimatedStyle}>
-          <Pressable style={styles.formButton} onPress={registerButtonScreenAnimator}>
+          <Pressable
+            style={styles.formButton}
+            onPress={registerButtonScreenAnimator}
+          >
             <Text style={styles.formButtonText}>REGISTER</Text>
           </Pressable>
         </Animated.View>
 
         <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}>
           <TextInput placeholder="Email" style={styles.textInput} />
-          <TextInput placeholder="Full Name" style={styles.textInput} />
+          {isRegistering ? (
+            <TextInput placeholder="Full Name" style={styles.textInput} />
+          ) : null}
           <TextInput placeholder="Password" style={styles.textInput} />
-          <Pressable
-            style={styles.formButton}
-            onPress={submitButtonHandler}
-          >
-            <Text style={styles.formButtonText}>LOG IN</Text>
+          <Pressable style={styles.formButton} onPress={submitButtonHandler}>
+            <Text style={styles.formButtonText}>
+              {isRegistering ? `REGISTER` : `LOG IN`}
+            </Text>
           </Pressable>
         </Animated.View>
       </View>
