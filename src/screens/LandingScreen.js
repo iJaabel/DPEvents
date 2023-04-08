@@ -7,7 +7,7 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Svg, { ClipPath, Ellipse, Image } from "react-native-svg";
 import Animated, {
   useSharedValue,
@@ -18,7 +18,9 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { Colors } from "../constants/colors";
-import { INITIAL_BACKGROUND, LOGO } from "../assets";
+import { AuthContext } from "../navigation/AuthProvider";
+
+// import { INITIAL_BACKGROUND, LOGO } from "../assets";
 
 /**
  * Feature idea
@@ -34,6 +36,7 @@ const { width, height } = Dimensions.get("window");
 
 export default function LandingScreen({ navigation }) {
   const [isRegistering, setRegistering] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const imagePosition = useSharedValue(1);
 
@@ -88,13 +91,17 @@ export default function LandingScreen({ navigation }) {
 
   //---
 
-  const loginHandler = () => {
+  const loginButtonScreenAnimator = () => {
     imagePosition.value = 0;
   };
 
-  const registerHandler = () => {
+  const registerButtonScreenAnimator = () => {
     imagePosition.value = 0;
   };
+
+  const submitButtonHandler = async () => {
+    setIsLoggedIn(prev => !prev)
+  }
 
   //---
 
@@ -109,13 +116,13 @@ export default function LandingScreen({ navigation }) {
           <ClipPath id="clipPathId">
             <Ellipse cx={width / 2} rx={height} ry={height + 100} />
           </ClipPath>
-          <Image
+          {/* <Image
             href={INITIAL_BACKGROUND}
             height={height + 100}
             width={width}
             preserveAspectRatio="xMidYMid slice"
             clipPath="url(#clipPathId)"
-          />
+          /> */}
         </Svg>
         <Animated.View
           style={[styles.closeButtonContainer, closeAnimatedStyle]}
@@ -131,12 +138,12 @@ export default function LandingScreen({ navigation }) {
       </View>  */}
       <View style={styles.footer}>
         <Animated.View style={buttonAnimatedStyle}>
-          <Pressable style={styles.formButton} onPress={loginHandler}>
+          <Pressable style={styles.formButton} onPress={loginButtonScreenAnimator}>
             <Text style={styles.formButtonText}>LOG IN</Text>
           </Pressable>
         </Animated.View>
         <Animated.View style={buttonAnimatedStyle}>
-          <Pressable style={styles.formButton} onPress={registerHandler}>
+          <Pressable style={styles.formButton} onPress={registerButtonScreenAnimator}>
             <Text style={styles.formButtonText}>REGISTER</Text>
           </Pressable>
         </Animated.View>
@@ -145,9 +152,12 @@ export default function LandingScreen({ navigation }) {
           <TextInput placeholder="Email" style={styles.textInput} />
           <TextInput placeholder="Full Name" style={styles.textInput} />
           <TextInput placeholder="Password" style={styles.textInput} />
-          <View style={styles.formButton}>
+          <Pressable
+            style={styles.formButton}
+            onPress={submitButtonHandler}
+          >
             <Text style={styles.formButtonText}>LOG IN</Text>
-          </View>
+          </Pressable>
         </Animated.View>
       </View>
     </View>

@@ -41,13 +41,13 @@ export default ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
+      {/* <ImageBackground
         source={require("../assets/background.png")}
         style={{
           flex: 1,
         }}
         resizeMode="cover"
-      >
+      > */}
         <ScrollView>
           <View style={styles.topContainer}>
             <Text style={styles.title}>Welcome Back</Text>
@@ -75,14 +75,14 @@ export default ({ navigation }) => {
             <TouchableOpacity onPress={logInUser}>
               <View style={styles.button2}>
                 <View style={styles.logo}>
-                  <Image
+                  {/* <Image
                     source={require("../assets/facebook.png")}
                     resizeMode="contain"
                     style={{
                       width: 30,
                       height: 30,
                     }}
-                  />
+                  /> */}
                 </View>
                 <Text style={styles.btnText}>Connect with facebook</Text>
               </View>
@@ -101,7 +101,7 @@ export default ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </ImageBackground>
+      {/* </ImageBackground> */}
     </View>
   );
 };

@@ -29,13 +29,13 @@ const SIZES = {
 export default function RegistrationScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <ImageBackground
+      {/* <ImageBackground
         source={require("../assets/background.png")}
         style={{
           flex: 1,
         }}
         resizeMode="cover"
-      >
+      > */}
         <ScrollView>
           <View style={styles.topContainer}>
             <Text style={styles.title}>Get Started</Text>
@@ -70,14 +70,14 @@ export default function RegistrationScreen({ navigation }) {
             <TouchableOpacity onPress={() => navigation.navigate("Onboarding")}>
               <View style={styles.button2}>
                 <View style={styles.logo}>
-                  <Image
+                  {/* <Image
                     source={require("../assets/facebook.png")}
                     resizeMode="contain"
                     style={{
                       width: 30,
                       height: 30,
                     }}
-                  />
+                  /> */}
                 </View>
                 <Text style={styles.btnText}>Sign In with facebook</Text>
               </View>
@@ -91,7 +91,7 @@ export default function RegistrationScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </ImageBackground>
+      {/* </ImageBackground> */}
     </View>
   );
   // <View style={styles.container}>
