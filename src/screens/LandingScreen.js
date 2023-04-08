@@ -113,6 +113,18 @@ export default function LandingScreen({ navigation }) {
   };
 
   const submitButtonHandler = async () => {
+    console.log(
+      "email for login: \n",
+      emailForLogin,
+      "email for reg: \n",
+      emailToregister,
+      "password for login: \n",
+      passwordForLogin,
+      "password for reg: \n",
+      passwordToRegister,
+      "name for reg: \n",
+      name
+    );
     setIsLoggedIn((prev) => !prev);
   };
 
@@ -168,11 +180,27 @@ export default function LandingScreen({ navigation }) {
         </Animated.View>
 
         <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}>
-          <TextInput placeholder="Email" style={styles.textInput} />
+          <TextInput
+            placeholder="Email"
+            style={styles.textInput}
+            onChangeText={(e) => {
+              isRegistering ? setEmail(e) : setEmailLogin(e);
+            }}
+          />
           {isRegistering ? (
-            <TextInput placeholder="Full Name" style={styles.textInput} />
+            <TextInput
+              placeholder="Full Name"
+              style={styles.textInput}
+              onChangeText={setName}
+            />
           ) : null}
-          <TextInput placeholder="Password" style={styles.textInput} />
+          <TextInput
+            placeholder="Password"
+            style={styles.textInput}
+            onChangeText={(e) => {
+              isRegistering ? setPassword(e) : setPasswordLogin(e);
+            }}
+          />
           <Pressable style={styles.formButton} onPress={submitButtonHandler}>
             <Text style={styles.formButtonText}>
               {isRegistering ? `REGISTER` : `LOG IN`}
