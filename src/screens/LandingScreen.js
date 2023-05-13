@@ -32,7 +32,10 @@ import { AuthContext } from "../navigation/AuthProvider";
  *  done - fix Login in animation to reflect only email and password
  *  - Register sends credentials to server
  *  - Login submits and retrives login cookie or whatever
- *  -
+ *  - Create the login screen graphics 
+ *  - Have a new floew for onboarding from registering for the first time
+ *  - Work on a backend for registration and verification
+ *  - 
  */
 
 const { width, height } = Dimensions.get("window");
@@ -49,6 +52,8 @@ export default function LandingScreen({ navigation }) {
 
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
+  // ---
+  // this is where the image is positioned on the screen
   const imagePosition = useSharedValue(1);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
@@ -116,14 +121,14 @@ export default function LandingScreen({ navigation }) {
     console.log(
       "email for login: \n",
       emailForLogin,
-      "email for reg: \n",
-      emailToregister,
-      "password for login: \n",
+      "\n password for login: \n",
       passwordForLogin,
-      "password for reg: \n",
-      passwordToRegister,
-      "name for reg: \n",
-      name
+      "\n email for reg: \n",
+      emailToregister,
+      "\n name for reg: \n",
+      name,
+      "\n password for reg: \n",
+      passwordToRegister
     );
     setIsLoggedIn((prev) => !prev);
   };
